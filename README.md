@@ -30,7 +30,7 @@ To do this a connection object must be created. This object must be passed the p
 ActiveLedgerLib.SDKPreferences.setConnection("protocol", "url", "port");
 ```
 #### Example
-```
+```c#
 ActiveLedgerLib.SDKPreferences.setConnection("http", "testnet-uk.activeledger.io", "5260");
 ```
 
@@ -80,23 +80,8 @@ var response = ActiveLedgerLib.MakeRequest.makeRequestAsync(ActiveLedgerLib.SDKP
 
 ### Transaction
 
-The Transaction class contains a static function which helps build an Activeledger transaction object.
+Creating a transaction
 
-```php
-require __DIR__ . '/vendor/autoload.php';
-
-// Generate Activeledger Transaction
-$transaction = activeledger\sdk\Transaction::build(
-    "Contract Stream / Label",
-    "Namespace",
-    // Input Streams (Requires Signatures)
-    array("Identity Stream" => array()),
-    // Outputs
-    array("Outputs: Identity Stream" => array()),
-    // Read Only Streams
-    array("Reads : Label" => "Idenity Stream")
-);
-```
 
 #### Signing & sending a transaction
 
@@ -106,42 +91,7 @@ The key must be one that has been successfully onboarded to the ledger which the
 
 ##### Example
 
-```php
-require __DIR__ . '/vendor/autoload.php';
 
-// Create Connection
-$connection = new activeledger\sdk\Connection("http", "127.0.0.1", 5260, false);
-
-// Generate Key
-$identity = activeledger\sdk\Key::generateKeyIdentity();
-
-try {
-    // Onboard Key
-    $stream = $identity->onBoard($connection);
-
-    // Generate Activeledger Transaction
-    $transaction = activeledger\sdk\Transaction::build(
-        "0000482232bcca98e3f2b375e6209400e185fae26efad7812268d7d66b321131",
-        "example-namespace",
-        // Input Streams (Requires Signatures)
-        array($stream => array("text" => "Hello World"))
-    );
-
-    // Get signed version of this transaction
-    $signedTx = $identity->sign($transaction)
-
-    // Submit
-    $response = $connection->send($signedTx);
-
-    // Response object will contain the streams property.
-    $response->streams->new; // Contains created Activity Streams
-    $response->streams->updated; // Contains updated Activity Streams
-
-}catch(Exception $error) {
-    // Manage any exceptions such as consensus problem or transport errors
-    die($error->getMessage());
-}
-```
 
 ## License
 
