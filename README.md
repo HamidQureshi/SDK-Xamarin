@@ -26,7 +26,7 @@ When sending a transaction, you must pass a connection that provides the informa
 
 To do this a connection object must be created. This object must be passed the protocol, address, and port.
 
-```
+```c#
 ActiveLedgerLib.SDKPreferences.setConnection("protocol", "url", "port");
 ```
 #### Example
@@ -45,7 +45,7 @@ There are two key types that can be generated currently, more are planned and wi
 
 ##### Example
 
-```
+```c#
 String KeyType = "EC" or "RSA";
 
 AsymmetricCipherKeyPair keypair = ActiveLedgerLib.GenerateKeyPair.GetKeyPair(KeyType);
@@ -56,7 +56,7 @@ AsymmetricCipherKeyPair keypair = ActiveLedgerLib.GenerateKeyPair.GetKeyPair(Key
 
 ##### Example
 
-```
+```c#
  ActiveLedgerLib.Helper.SaveKeyToFile(ActiveLedgerLib.Helper.GetPrivateKey(keypair), "privatekey.pem");
  ActiveLedgerLib.Helper.SaveKeyToFile(ActiveLedgerLib.Helper.GetPublicKey(keypair), "publickey.pem");
 ```
@@ -68,7 +68,7 @@ Once you have a key generated, to use it to sign transactions it must be onboard
 
 ##### Example
 
-```
+```c#
 JObject json = ActiveLedgerLib.GenerateTxJson.GetTxJsonForOnboardingKeys(keypair, KeyType);
 
 string json_str = ActiveLedgerLib.Helper.ConvertJsonToString(json);
