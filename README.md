@@ -26,41 +26,41 @@ When sending a transaction, you must pass a connection that provides the informa
 
 To do this a connection object must be created. This object must be passed the protocol, address, and port.
 
+```
+ActiveLedgerLib.SDKPreferences.setConnection("protocol", "url", "port");
+```
 #### Example
-
-```php
-require __DIR__ . '/vendor/autoload.php';
-
-// Setup the connection object to use localhost over http unencrypted
-$connection = new activeledger\sdk\Connection("http", "127.0.0.1", 5260, false);
-
-// Use localhost but encrypt transactions
-$connection = new activeledger\sdk\Connection("http", "127.0.0.1", 5260, true);
+```
+ActiveLedgerLib.SDKPreferences.setConnection("http", "testnet-uk.activeledger.io", "5260");
 ```
 
 ---
 
 ### Key
 
-The Key class can be used to generate a key.
-
 There are two key types that can be generated currently, more are planned and will be implemented into Activeledger first. These types are RSA and Elliptic Curve.
 
 #### Generating a key
 
-When generating a key the default is an Elliptic Curve key. The object returned will be a KeyIdentity class.
 
 ##### Example
 
-```php
-require __DIR__ . '/vendor/autoload.php';
-
-// Generate Elliptic Key
-$identity = activeledger\sdk\Key::generateKeyIdentity();
-
-// Generate RSA Key
-$identity = activeledger\sdk\Key::generateKeyIdentity("rsa");
 ```
+String KeyType = "EC" or "RSA";
+
+AsymmetricCipherKeyPair keypair = ActiveLedgerLib.GenerateKeyPair.GetKeyPair(KeyType);
+```
+
+#### Exporting Key
+
+
+##### Example
+
+```
+ ActiveLedgerLib.Helper.SaveKeyToFile(ActiveLedgerLib.Helper.GetPrivateKey(keypair), "privatekey.pem");
+ ActiveLedgerLib.Helper.SaveKeyToFile(ActiveLedgerLib.Helper.GetPublicKey(keypair), "publickey.pem");
+```
+
 
 #### Onboarding a key
 
@@ -68,47 +68,12 @@ Once you have a key generated, to use it to sign transactions it must be onboard
 
 ##### Example
 
-```php
-require __DIR__ . '/vendor/autoload.php';
-
-// Create Connection
-$connection = new activeledger\sdk\Connection("http", "127.0.0.1", 5260, false);
-
-// Generate Key
-$identity = activeledger\sdk\Key::generateKeyIdentity();
-
-try {
-    // Onboard Key
-    $stream = $identity->onBoard($connection);
-}catch(Exception $error) {
-    // Manage any exceptions such as consensus problem or transport errors
-    die($error->getMessage());
-}
 ```
+JObject json = ActiveLedgerLib.GenerateTxJson.GetTxJsonForOnboardingKeys(keypair, KeyType);
 
-#### Exporting Key
+string json_str = ActiveLedgerLib.Helper.ConvertJsonToString(json);
 
-To save the key for later use you can use the php serialize function
-
-```php
-require __DIR__ . '/vendor/autoload.php';
-
-// Generate Key
-$identity = activeledger\sdk\Key::generateKeyIdentity();
-
-// Store object as a safe string
-$export = base64_encode(serialize($identity));
-```
-
-#### Importing Key
-
-You can import a key using php unserialize function which restores the object
-
-```php
-require __DIR__ . '/vendor/autoload.php';
-
-// Restore KeyIdentity Object from the exported safe string
-$identity = serialize(base64_decode($export))
+var response = ActiveLedgerLib.MakeRequest.makeRequestAsync(ActiveLedgerLib.SDKPreferences.url, json_str);
 ```
 
 ---
