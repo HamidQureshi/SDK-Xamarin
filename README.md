@@ -2,7 +2,7 @@
 
 # Activeledger - Xamarin SDK
 
-The Activeledger PHP SDK has been built to provide an easy way to connect your php web application to an Activeledger Network
+The Activeledger Xamarin SDK has been built to provide an easy way to connect your Xamarin application to an Activeledger Network
 
 ### Activeledger
 
@@ -10,12 +10,6 @@ The Activeledger PHP SDK has been built to provide an easy way to connect your p
 
 [Read Activeledgers documentation](https://github.com/activeledger/activeledger)
 
-## Installation
-
-```
-$ composer require activeledger/sdk ~0.0.1
-$ composer install -o
-```
 
 ## Usage
 
@@ -25,19 +19,12 @@ The SDK currently supports the following functionality
 - Key generation
 - Key onboarding
 - Transaction building
-- Encrypted & unencrypted transaction posting
-
-Once the SDK has been installed import the classes with the autoloader
-
-```php
-require __DIR__ . '/vendor/autoload.php';
-```
 
 ### Connection
 
 When sending a transaction, you must pass a connection that provides the information needed to establish a link to the network and specified node.
 
-To do this a connection object must be created. This object must be passed the protocol, address, port, and the encryption flag.
+To do this a connection object must be created. This object must be passed the protocol, address, and port.
 
 #### Example
 
