@@ -82,6 +82,10 @@ var response = ActiveLedgerLib.MakeRequest.makeRequestAsync(ActiveLedgerLib.SDKP
 
 Creating a transaction
 
+```c#
+JObject jObject = ActiveLedgerLib.GenerateTxJson.GetBasicTxJson(JObject tx, Nullable < bool > selfSign, string sigs);
+```
+
 
 #### Signing & sending a transaction
 
@@ -91,7 +95,28 @@ The key must be one that has been successfully onboarded to the ledger which the
 
 ##### Example
 
+```c#
+JObject tx = <transaction to send>
+string tx_str = Helper.ConvertJsonToString(tx);
+           
+//converting transaction in to byte Array
+byte[] originalData = Helper.ConvertStringToByteArray(tx_str);
+//signing the transaction
+if (keyType == "RSA")
+{
+   RsaKeyParameters priKey = (RsaKeyParameters)keypair.Private;
+   byte[] signedData = GenerateSignature.GetSignatureRSA(originalData, priKey);
+}
+else
+{
+   ECKeyParameters priECKey = (ECKeyParameters)keypair.Private;
+   byte[] signedData = GenerateSignature.GetSignatureEC(originalData, priECKey);
+}
 
+
+//sending the transaction to ActiveLedger
+var response = ActiveLedgerLib.MakeRequest.makeRequestAsync(ActiveLedgerLib.SDKPreferences.url, json_str);
+```
 
 ## License
 
