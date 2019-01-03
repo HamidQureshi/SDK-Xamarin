@@ -122,6 +122,6 @@ var response = ActiveLedgerLib.MakeRequest.makeRequestAsync(ActiveLedgerLib.SDKP
 
 ---
 
-This project is licensed under the [MIT](https://github.com/activeledger/activeledger/blob/master/LICENSE) License
+This project is licensed under the [MIT](https://github.com/activeledger/SDK-Xamarin/blob/master/LICENSE) License
 
 
