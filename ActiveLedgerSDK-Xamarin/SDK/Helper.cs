@@ -12,6 +12,7 @@ namespace ActiveLedgerLib
     public static class Helper
     {
 
+        // extract public key from keypair and returns as a string
         public static String GetPublicKey(AsymmetricCipherKeyPair keys)
         {
             TextWriter textWriter = new StringWriter();
@@ -21,7 +22,8 @@ namespace ActiveLedgerLib
             return textWriter.ToString();
 
         }
-
+        
+        // extract private key from keypair and returns as a string
         public static String GetPrivateKey(AsymmetricCipherKeyPair keys)
         {
             TextWriter textWriter = new StringWriter();
@@ -50,9 +52,6 @@ namespace ActiveLedgerLib
             }
 
 }
-
-
-
 
 
         //json to string Converter
