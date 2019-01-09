@@ -66,9 +66,14 @@ namespace ActiveLedgerLib
    
 
         //Base Transaction Json
-        public static JObject GetBasicTxJson(JObject tx, Nullable<bool> selfSign, string sigs)
+        public static JObject GetBasicTxJson(String territoriality, JObject tx, Nullable<bool> selfSign, string sigs)
         {
             JObject transaction = new JObject();
+            if(territoriality != null)
+            {
+                transaction.Add("$territoriality", territoriality);
+            }
+
             transaction.Add("$tx", tx);
             if (selfSign != null)
             {

@@ -51,10 +51,28 @@ namespace ActiveLedgerLib
             return Response;
 
         }
-
- 
-
         #endregion makeRequestAsync Method
+
+
+        //getting the territoriality details fron the ledger
+        #region getTerritorialityDetails Method
+        public static async Task<HttpResponseMessage> getTerritorialityDetails(string endpoint)
+        {
+
+
+            using (var client = new HttpClient())
+            {
+
+                Response = await client.GetAsync(endpoint+"/a/status").ConfigureAwait(false);
+
+
+            };
+
+            return Response;
+
+        }
+        #endregion getTerritorialityDetails Method
+
     }
 }
 

@@ -49,6 +49,21 @@ namespace ActiveLedgerSDK_Xamarin
 
             }
 
+            //http hit to get territoriality details
+            var territotiality_response = ActiveLedgerLib.MakeRequest.getTerritorialityDetails(ActiveLedgerLib.SDKPreferences.url);
+
+            territotiality_response.Wait();
+
+            if (territotiality_response.Result.Content != null)
+            {
+                //reading response from Active Ledger
+                var responseContent = territotiality_response.Result.Content.ReadAsStringAsync();
+
+                //writing response on the text box                  
+                System.Diagnostics.Debug.WriteLine("--Territoriality Response--" + responseContent.Result);
+
+            }
+
 
         }
 
